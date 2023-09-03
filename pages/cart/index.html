@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carrinho de Compras</title>
+    <script defer src="main.js"></script>
+    <link rel="stylesheet" href="../../global.css" />
+  </head>
+  <body>
+    <h1>Carrinho de Compras</h1>
+    <div id="zipCodeWrapper">
+      <span>Informe o CEP da sua cidade</span> <input type="text" class="zipCode" /> -
+      <input type="text" class="zipCode" /> <button id="calcShipping">Calcular frete</button>
+    </div>
+    <br />
+    <div id="cartContainer">
+      <div>
+        <span>Produto</span>
+        <span>Quantidade</span>
+        <span>Entrega</span>
+        <span>Valor Unitário</span>
+        <span>Valor Total</span>
+      </div>
+    </div>
+    <br />
+    <div>
+      <p>Subtotal R$<span id="subtotal"></span></p>
+      <p>Frete R$<span id="shippingPrice"></span></p>
+      <p>Total R$<span id="total"></span></p>
+    </div>
+    <button id="checkout">Pagar</button>
+  </body>
+</html>

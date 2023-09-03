@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pagamento</title>
+    <script defer src="main.js"></script>
+    <link rel="stylesheet" href="../../global.css" />
+  </head>
+  <body>
+    <h1>Pagamento</h1>
+    <div class="paymentMethods">
+      <h2>Formas de Pagamento</h2>
+      <button class="regularPayment">Débito</button>
+      <button class="regularPayment">PIX</button>
+      <button class="regularPayment">Boleto</button>
+      <button id="creditPayment">Cartão de crédito</button>
+    </div>
+    <br />
+    <img id="paymentMethodImage" src="../../images/assets/pngs/debit.png" />
+    <br />
+    <div id="cardBrands">
+      <button id="visa">Visa</button>
+      <button id="mastercard">Mastercard</button>
+      <button id="americanexpress">American Express</button>
+    </div>
+    <br />
+    <form id="checkoutForm">
+      <label for="cardName">Nome do titular</label>
+      <input type="text" id="cardName" />
+      <label for="cardNumber">Número do cartão</label>
+      <input type="text" id="cardNumber" />
+      <label for="cardCode">Código de segurança</label>
+      <input type="text" id="cardCode" />
+      <button>Confirmar pagamento</button>
+    </form>
+  </body>
+</html>

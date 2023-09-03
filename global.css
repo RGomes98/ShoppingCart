@@ -1,0 +1,56 @@
+.hideElement {
+  display: none;
+}
+
+#cartContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  max-width: 80%;
+}
+
+#cartContainer > div {
+  gap: 3rem;
+  display: flex;
+  padding-inline: 3rem 0;
+  justify-content: space-between;
+}
+
+#cartContainer > div:nth-child(1) {
+  padding-inline-start: 6rem;
+}
+
+.productWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.productWrapper img {
+  max-width: 250px;
+  min-width: 250px;
+  min-height: 290px;
+  max-height: 290px;
+  object-fit: contain;
+}
+
+.productWrapper input {
+  max-width: 30px;
+}
+
+.imageWrapper {
+  gap: 1rem;
+  display: flex;
+  max-width: 200px;
+  flex-direction: column;
+}
+
+#paymentMethodImage {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.cardLogo {
+  max-width: 200px;
+  max-height: 200px;
+  margin-block: 1rem;
+}
