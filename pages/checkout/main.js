@@ -129,13 +129,13 @@ function handleSubmit(e) {
   } = e.target;
 
   const isAmericanExpress = selectedBrand === 'americanexpress' ? 15 : 16;
-  const isPaymentMethodCreditCard = cardNameWrapper.classList.contains('hide_element');
+  const isPaymentMethodCreditCard = !cardNameWrapper.classList.contains('hide_element');
 
-  if (isPaymentMethodCreditCard && (!cardNumber || !cardCode || !selectedBrand)) {
+  if (!isPaymentMethodCreditCard && (!cardNumber || !cardCode)) {
     return (formError.innerText = 'Preencha o Número e Código do Cartão.');
   }
 
-  if (!isPaymentMethodCreditCard && (!cardName || !cardNumber || !cardCode || !selectedBrand)) {
+  if (isPaymentMethodCreditCard && (!cardName || !cardNumber || !cardCode)) {
     return (formError.innerText = 'Preencha o Nome, Número e Código do Cartão.');
   }
 
