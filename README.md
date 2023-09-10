@@ -1,1 +1,1 @@
-## JavaScript Shopping Cart
+## Web Programming Language Exercise - ShoppingCart
