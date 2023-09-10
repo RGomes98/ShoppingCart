@@ -1,21 +1,19 @@
 let isAtLoginPage = true;
 
-const loginButton = document.getElementById('login');
-const registerButton = document.getElementById('register');
-
-const form = document.getElementById('form');
-
-const formName = document.getElementById('name');
-formName.classList.add('hideElement');
-
-const formaNameLabel = document.querySelector(`label[for=${formName.id}]`);
-formaNameLabel.classList.add('hideElement');
-
+const body = document.body;
 const title = document.getElementById('title');
-const heading = document.getElementById('heading');
+const formName = document.getElementById('name');
+const form = document.getElementById('login_form');
+const heading = document.getElementById('login_heading');
+const loginButton = document.getElementById('login_button');
+const registerButton = document.getElementById('register_button');
+
+const nameWrapper = document.getElementById('name_wrapper');
+nameWrapper.classList.add('hide_element');
 
 const error = document.createElement('span');
-form.appendChild(error);
+error.classList.add('login_form_error');
+body.appendChild(error);
 
 registerButton.addEventListener('click', toggleRegister);
 
@@ -24,8 +22,7 @@ function toggleRegister() {
   error.innerText = '';
   isAtLoginPage = !isAtLoginPage;
 
-  formName.classList.toggle('hideElement');
-  formaNameLabel.classList.toggle('hideElement');
+  nameWrapper.classList.toggle('hide_element');
 
   title.innerText = isAtLoginPage ? 'Entrar' : 'Criar Conta';
   heading.innerText = isAtLoginPage ? 'Entrar' : 'Criar Conta';
@@ -56,7 +53,7 @@ function handleSubmit(e) {
   }
 
   if (!isAtLoginPage && (!name || !email || !password)) {
-    return (error.innerText = 'Todos os campos são necessarios para a criação de uma conta');
+    return (error.innerText = 'Todos os campos são necessarios para a criação de uma conta.');
   }
 
   if (!isAtLoginPage && !isNameValid) {
