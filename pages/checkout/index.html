@@ -8,31 +8,43 @@
     <link rel="stylesheet" href="../../global.css" />
   </head>
   <body>
-    <h1>Pagamento</h1>
-    <div class="paymentMethods">
-      <h2>Formas de Pagamento</h2>
-      <button class="regularPayment">Débito</button>
-      <button class="regularPayment">PIX</button>
-      <button class="regularPayment">Boleto</button>
-      <button id="creditPayment">Cartão de crédito</button>
+    <h1 class="checkout_heading">Pagamento</h1>
+    <div class="checkout_wrapper">
+      <div class="payment_options_wrapper">
+        <div id="payment_methods_wrapper">
+          <span class="payment_heading">Formas de pagamento</span>
+          <img id="payment_method_image" src="../../images/assets/pngs/debit.png" />
+          <div id="payment_button_wrapper">
+            <button class="regular_payment">Débito</button>
+            <button class="regular_payment">PIX</button>
+            <button class="regular_payment">Boleto</button>
+            <button id="credit_payment_button">Cartão de crédito</button>
+          </div>
+        </div>
+        <div id="card_brands_wrapper">
+          <span class="payment_heading">Bandeiras</span>
+          <div id="card_brands_button_wrapper">
+            <button id="visa">Visa</button>
+            <button id="mastercard">Mastercard</button>
+            <button id="americanexpress">American Express</button>
+          </div>
+        </div>
+      </div>
+      <form id="checkout_form">
+        <div class="checkout_form_input_wrapper">
+          <label for="card_name">Nome do titular:</label>
+          <input id="card_name" type="text" />
+        </div>
+        <div class="checkout_form_input_wrapper">
+          <label for="card_number">Número do cartão:</label>
+          <input id="card_number" type="text" />
+        </div>
+        <div class="checkout_form_input_wrapper">
+          <label for="card_code">Código de segurança:</label>
+          <input id="card_code" type="text" />
+        </div>
+        <button class="payment_button">Confirmar pagamento</button>
+      </form>
     </div>
-    <br />
-    <img id="paymentMethodImage" src="../../images/assets/pngs/debit.png" />
-    <br />
-    <div id="cardBrands">
-      <button id="visa">Visa</button>
-      <button id="mastercard">Mastercard</button>
-      <button id="americanexpress">American Express</button>
-    </div>
-    <br />
-    <form id="checkoutForm">
-      <label for="cardName">Nome do titular</label>
-      <input type="text" id="cardName" />
-      <label for="cardNumber">Número do cartão</label>
-      <input type="text" id="cardNumber" />
-      <label for="cardCode">Código de segurança</label>
-      <input type="text" id="cardCode" />
-      <button>Confirmar pagamento</button>
-    </form>
   </body>
 </html>

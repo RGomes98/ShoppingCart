@@ -1,99 +1,98 @@
-const creditCardPayment = document.getElementById('creditPayment');
-const cardName = document.getElementById('cardName');
-const creditCardNameLabel = document.querySelector(`label[for=${cardName.id}]`);
-const cardBrands = document.getElementById('cardBrands');
-const otherPaymentMethods = document.getElementsByClassName('regularPayment');
-const cardNumber = document.getElementById('cardNumber');
-const cardCode = document.getElementById('cardCode');
-const checkoutForm = document.getElementById('checkoutForm');
-const paymentMethodImage = document.getElementById('paymentMethodImage');
+let selectedBrand = 'visa';
 
-creditCardNameLabel.classList.add('hideElement');
-cardName.classList.add('hideElement');
-
-let selectedBrand = null;
-const selectedCardBrand = document.createElement('span');
-selectedCardBrand.innerText = selectedBrand ?? 'Bandeira: Não Selecionada';
-cardBrands.appendChild(selectedCardBrand);
-
-const selectedPaymentMethod = document.createElement('span');
-selectedPaymentMethod.innerText = 'Método: Débito';
-document.getElementsByClassName('paymentMethods')[0].appendChild(selectedPaymentMethod);
+const cardName = document.getElementById('card_name');
+const cardCode = document.getElementById('card_code');
+const cardNumber = document.getElementById('card_number');
+const checkoutForm = document.getElementById('checkout_form');
+const cardBrands = document.getElementById('card_brands_wrapper');
+const paymentMethodImage = document.getElementById('payment_method_image');
+const creditCardPayment = document.getElementById('credit_payment_button');
+const otherPaymentMethods = document.getElementsByClassName('regular_payment');
+const checkoutWrapper = document.getElementsByClassName('checkout_wrapper')[0];
+const paymentButtonsWrapper = document.getElementById('payment_button_wrapper');
+const paymentMethodsWrapper = document.getElementById('payment_methods_wrapper');
+const cardBrandsButtonWrapper = document.getElementById('card_brands_button_wrapper');
 
 const formError = document.createElement('span');
-checkoutForm.appendChild(formError);
+formError.className = 'form_error';
+checkoutWrapper.appendChild(formError);
 
 const cardBrandLogo = document.createElement('img');
-cardBrandLogo.classList.add('cardLogo');
+cardBrandLogo.src = '../../images/assets/pngs/visa.png';
+cardBrandsButtonWrapper.before(cardBrandLogo);
+cardBrandLogo.className = 'card_logo';
 
-creditCardPayment.addEventListener('click', () => {
-  cardName.classList.remove('hideElement');
-  creditCardNameLabel.classList.remove('hideElement');
+const cardNameWrapper = document.getElementsByClassName('checkout_form_input_wrapper')[0];
+cardNameWrapper.classList.add('hide_element');
+
+creditCardPayment.addEventListener('click', handleCreditCardPayment);
+
+function handleCreditCardPayment() {
+  checkoutForm.reset();
+  cardNameWrapper.classList.remove('hide_element');
   paymentMethodImage.src = '../../images/assets/pngs/credit.png';
-  selectedPaymentMethod.innerText = 'Método: Cartão de crédito';
-});
+}
 
-Array.from(otherPaymentMethods).forEach((element) => {
-  element.addEventListener('click', (e) => {
-    const paymentMethod = e.target.innerText.toLowerCase();
+Array.from(otherPaymentMethods).forEach((element) =>
+  element.addEventListener('click', handleOtherPaymentMethods)
+);
 
-    switch (paymentMethod) {
-      case 'débito':
-        paymentMethodImage.src = '../../images/assets/pngs/debit.png';
-        selectedPaymentMethod.innerText = 'Método: Débito';
-        break;
-      case 'pix':
-        paymentMethodImage.src = '../../images/assets/pngs/pix.png';
-        selectedPaymentMethod.innerText = 'Método: PIX';
-        break;
-      case 'boleto':
-        paymentMethodImage.src = '../../images/assets/pngs/bill.png';
-        selectedPaymentMethod.innerText = 'Método: Boleto';
-        break;
-    }
+function handleOtherPaymentMethods(e) {
+  checkoutForm.reset();
+  cardNameWrapper.classList.add('hide_element');
+  const paymentMethod = e.target.innerText.toLowerCase();
 
-    cardName.classList.add('hideElement');
-    creditCardNameLabel.classList.add('hideElement');
-  });
-});
+  switch (paymentMethod) {
+    case 'débito':
+      paymentMethodImage.src = '../../images/assets/pngs/debit.png';
+      break;
+    case 'pix':
+      paymentMethodImage.src = '../../images/assets/pngs/pix.png';
+      break;
+    case 'boleto':
+      paymentMethodImage.src = '../../images/assets/pngs/bill.png';
+      break;
+  }
+}
 
-Array.from(cardBrands.childNodes).forEach((element) => {
-  element.addEventListener('click', (e) => {
-    const { id: cardBrand } = e.target;
-    selectedBrand = cardBrand;
-    selectedCardBrand.innerText = `Bandeira: ${selectedBrand.toUpperCase()}`;
-    cardBrands.after(cardBrandLogo);
+Array.from(cardBrandsButtonWrapper.childNodes)
+  .filter((element) => element.localName === 'button')
+  .forEach((element) => element.addEventListener('click', handleSelectCreditCardBrand));
 
-    switch (cardBrand) {
-      case 'visa':
-        cardBrandLogo.src = '../../images/assets/pngs/visa.png';
-        break;
-      case 'mastercard':
-        cardBrandLogo.src = '../../images/assets/pngs/mastercard.png';
-        break;
-      case 'americanexpress':
-        cardBrandLogo.src = '../../images/assets/pngs/americanexpress.png';
-        break;
-    }
-  });
-});
+function handleSelectCreditCardBrand(e) {
+  const { id: cardBrand } = e.target;
+  selectedBrand = cardBrand;
 
-cardName.addEventListener('input', (e) => {
+  switch (cardBrand) {
+    case 'visa':
+      cardBrandLogo.src = '../../images/assets/pngs/visa.png';
+      break;
+    case 'mastercard':
+      cardBrandLogo.src = '../../images/assets/pngs/mastercard.png';
+      break;
+    case 'americanexpress':
+      cardBrandLogo.src = '../../images/assets/pngs/americanexpress.png';
+      break;
+  }
+}
+
+cardName.addEventListener('input', handleCardName);
+
+function handleCardName(e) {
   const string = e.target.value;
   const lastChar = string.split('').at(-1);
+  const isLastCharLetter = string && lastChar.toLowerCase() !== lastChar.toUpperCase();
 
-  if (
-    string &&
-    string.length <= 19 &&
-    (lastChar.toLowerCase() !== lastChar.toUpperCase() || lastChar === ' ')
-  ) {
+  if (string.length <= 19 && (isLastCharLetter || lastChar === ' ')) {
     cardName.value = string.toUpperCase();
   } else {
     cardName.value = string.slice(0, string.length - 1);
   }
-});
+}
 
-cardNumber.addEventListener('input', (e) => {
+cardNumber.addEventListener('input', handleCardNumber);
+
+function handleCardNumber(e) {
   const string = e.target.value;
   const lastChar = string.split('').at(-1);
 
@@ -102,9 +101,11 @@ cardNumber.addEventListener('input', (e) => {
   } else {
     cardNumber.value = string.slice(0, string.length - 1);
   }
-});
+}
 
-cardCode.addEventListener('input', (e) => {
+cardCode.addEventListener('input', handleCardCode);
+
+function handleCardCode(e) {
   const string = e.target.value;
   const lastChar = string.split('').at(-1);
 
@@ -113,51 +114,55 @@ cardCode.addEventListener('input', (e) => {
   } else {
     cardCode.value = string.slice(0, string.length - 1);
   }
-});
+}
 
-checkoutForm.addEventListener('submit', (e) => {
-  formError.innerText = '';
+checkoutForm.addEventListener('submit', handleSubmit);
+
+function handleSubmit(e) {
   e.preventDefault();
+  formError.innerText = '';
 
   const {
-    cardName: { value: cardName },
-    cardNumber: { value: cardNumber },
-    cardCode: { value: cardCode },
+    card_name: { value: cardName },
+    card_number: { value: cardNumber },
+    card_code: { value: cardCode },
   } = e.target;
 
-  const isPaymentMethodCreditCard = document
-    .getElementById('cardName')
-    .classList.contains('hideElement');
-  const isAmericaExpress = selectedBrand === 'americanexpress' ? 15 : 16;
+  const isAmericanExpress = selectedBrand === 'americanexpress' ? 15 : 16;
+  const isPaymentMethodCreditCard = cardNameWrapper.classList.contains('hide_element');
 
-  if (isPaymentMethodCreditCard && (!cardNumber || !cardCode || !selectedBrand))
-    return (formError.innerText = 'Preencha o Número, Código e Bandeira do Cartão.');
+  if (isPaymentMethodCreditCard && (!cardNumber || !cardCode || !selectedBrand)) {
+    return (formError.innerText = 'Preencha o Número e Código do Cartão.');
+  }
 
-  if (!isPaymentMethodCreditCard && (!cardName || !cardNumber || !cardCode || !selectedBrand))
-    return (formError.innerText = 'Preencha o Nome, Número, Código e Bandeira do Cartão.');
+  if (!isPaymentMethodCreditCard && (!cardName || !cardNumber || !cardCode || !selectedBrand)) {
+    return (formError.innerText = 'Preencha o Nome, Número e Código do Cartão.');
+  }
 
   const isCardNameValid = cardName.split('').every((char, _, name) => {
     return name.length <= 19 && (char.toLowerCase() !== char.toUpperCase() || char === ' ');
   });
 
-  if (!isCardNameValid)
+  if (!isCardNameValid) {
     return (formError.innerText =
       'Nome Inválido. Máximo de 19 caracteres e sem números. Corrija e tente novamente.');
-
+  }
   const isCardNumberValid = cardNumber.split('').every((char, _, number) => {
-    return number.length === isAmericaExpress && !isNaN(char) && char !== ' ';
+    return number.length === isAmericanExpress && !isNaN(char) && char !== ' ';
   });
 
-  if (!isCardNumberValid)
-    return (formError.innerText = `Número do Cartão Inválido. Insira ${isAmericaExpress} dígitos numéricos sem espaços. Corrija e tente novamente.`);
+  if (!isCardNumberValid) {
+    return (formError.innerText = `Número do Cartão Inválido. Insira ${isAmericanExpress} dígitos numéricos sem espaços. Corrija e tente novamente.`);
+  }
 
   const isCardCodeValid = cardCode.split('').every((char, _, number) => {
     return number.length === 3 && !isNaN(char) && char !== ' ';
   });
 
-  if (!isCardCodeValid)
+  if (!isCardCodeValid) {
     return (formError.innerText =
       'Código de Segurança Inválido. Deve conter exatamente 3 dígitos numéricos. Corrija e tente novamente.');
+  }
 
   const validateCardBrand = {
     visa: /^4[0-9]{12,15}$/,
@@ -172,9 +177,10 @@ checkoutForm.addEventListener('submit', (e) => {
       'Número de Cartão de Crédito Inválido. Verifique se o número foi inserido corretamente e tente novamente.');
   }
 
-  const finalMessage = document.createElement('h1');
-  finalMessage.innerText = 'Compra realizada com sucesso!';
-  document.body.appendChild(finalMessage);
-
-  setTimeout(() => finalMessage.remove(), 5000);
-});
+  checkoutForm.reset();
+  const successfulPurchaseMessage = document.createElement('span');
+  successfulPurchaseMessage.innerText = 'Compra realizada com sucesso!';
+  successfulPurchaseMessage.className = 'success_message';
+  checkoutWrapper.appendChild(successfulPurchaseMessage);
+  setTimeout(() => successfulPurchaseMessage.remove(), 5000);
+}
