@@ -1,33 +1,40 @@
-const registerButton = document.getElementById('register');
-const formName = document.getElementById('name');
-const formaNameLabel = document.querySelector(`label[for=${formName.id}]`);
-const heading = document.getElementById('heading');
-const title = document.getElementById('title');
+let isAtLoginPage = true;
+
 const loginButton = document.getElementById('login');
+const registerButton = document.getElementById('register');
+
 const form = document.getElementById('form');
+
+const formName = document.getElementById('name');
+formName.classList.add('hideElement');
+
+const formaNameLabel = document.querySelector(`label[for=${formName.id}]`);
+formaNameLabel.classList.add('hideElement');
+
+const title = document.getElementById('title');
+const heading = document.getElementById('heading');
 
 const error = document.createElement('span');
 form.appendChild(error);
 
-formName.classList.add('hideElement');
-formaNameLabel.classList.add('hideElement');
-
 registerButton.addEventListener('click', toggleRegister);
+
 function toggleRegister() {
   form.reset();
   error.innerText = '';
+  isAtLoginPage = !isAtLoginPage;
 
-  const isAtRegisterPage = formName.classList.contains('hideElement');
   formName.classList.toggle('hideElement');
   formaNameLabel.classList.toggle('hideElement');
 
-  title.innerText = isAtRegisterPage ? 'Criar Conta' : 'Entrar';
-  heading.innerText = isAtRegisterPage ? 'Criar Conta' : 'Entrar';
-  registerButton.innerText = isAtRegisterPage ? 'Já tem uma conta? Entrar' : 'Criar Conta';
-  loginButton.innerText = isAtRegisterPage ? 'Criar Conta' : 'Entrar';
+  title.innerText = isAtLoginPage ? 'Entrar' : 'Criar Conta';
+  heading.innerText = isAtLoginPage ? 'Entrar' : 'Criar Conta';
+  loginButton.innerText = isAtLoginPage ? 'Entrar' : 'Criar Conta';
+  registerButton.innerText = isAtLoginPage ? 'Criar Conta' : 'Já tem uma conta? Entrar';
 }
 
 form.addEventListener('submit', handleSubmit);
+
 function handleSubmit(e) {
   e.preventDefault();
   error.innerText = '';
@@ -38,10 +45,11 @@ function handleSubmit(e) {
     password: { value: password },
   } = e.target;
 
-  const isAtLoginPage = formName.classList.contains('hideElement');
   const isPasswordLengthValid = /^[a-zA-Z0-9]{6,10}$/.test(password);
   const isPasswordFormatValid = /(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])/.test(password);
-  const isNameValid = name.split(' ').every((n, _, each) => each.length >= 2 && n.length >= 2);
+  const isNameValid = name
+    .split(' ')
+    .every((name, _, fullName) => fullName.length >= 2 && name.length >= 2);
 
   if (isAtLoginPage && (!email || !password)) {
     return (error.innerText = 'Todos os campos são necessarios para entrar.');
