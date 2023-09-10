@@ -3,32 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Carrinho de Compras</title>
-    <script type="module" src="main.js" defer></script>
+    <title>Carrinho</title>
+    <script src="main.js" defer></script>
     <link rel="stylesheet" href="../../global.css" />
   </head>
   <body>
-    <h1>Carrinho de Compras</h1>
-    <div id="zipCodeWrapper">
-      <span>Informe o CEP da sua cidade</span> <input type="text" class="zipCode" /> -
-      <input type="text" class="zipCode" /> <button id="calcShipping">Calcular frete</button>
-    </div>
-    <br />
-    <div id="cartContainer">
-      <div>
-        <span>Produto</span>
-        <span>Quantidade</span>
-        <span>Entrega</span>
-        <span>Valor Unitário</span>
-        <span>Valor Total</span>
+    <h1 class="cart_heading">Carrinho</h1>
+    <div class="cart_wrapper">
+      <div class="cart_info">
+        <div id="zipcode_wrapper">
+          <span class="zipcode_wrapper_heading">Informe o CEP da sua cidade:</span>
+          <div class="zipcode_input_wrapper">
+            <input class="zipcode" type="text" placeholder="Primeiros Cinco Dígitos do CEP." />
+            <input class="zipcode" type="text" placeholder="Últimos Três Dígitos do CEP." />
+          </div>
+          <button id="shipping_button">Calcular frete</button>
+        </div>
+        <div class="price_wrapper">
+          <span class="price">Subtotal R$ <span id="subtotal">0.00</span></span>
+          <span class="price">Frete R$ <span id="shipping_price">0.00</span></span>
+          <span class="price">Total R$ <span id="total">0.00</span></span>
+        </div>
+        <button id="checkout_button">Pagar</button>
       </div>
+      <div id="cart_container"></div>
     </div>
-    <br />
-    <div>
-      <p>Subtotal R$<span id="subtotal"></span></p>
-      <p>Frete R$<span id="shippingPrice"></span></p>
-      <p>Total R$<span id="total"></span></p>
-    </div>
-    <button id="checkout">Pagar</button>
   </body>
 </html>
