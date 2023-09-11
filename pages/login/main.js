@@ -70,6 +70,5 @@ function handleSubmit(e) {
       'A senha deve conter pelo menos, uma letra minúscula, uma maiúscula e um número.');
   }
 
-  const cartPagePath = window.location.pathname.replace('login', 'cart');
-  window.location.pathname = cartPagePath;
+  window.location.href = '../cart/index.html';
 }

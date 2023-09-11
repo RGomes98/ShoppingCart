@@ -99,15 +99,7 @@ function handleCheckout() {
       'Adicione Produtos ao Carrinho Antes de Finalizar a Compra.');
   }
 
-  const checkoutPagePath = window.location.pathname
-    .split('/')
-    .reverse()
-    .join('/')
-    .replace('cart', 'checkout')
-    .split('/')
-    .reverse()
-    .join('/');
-  window.location.pathname = checkoutPagePath;
+  window.location.href = '../checkout/index.html';
 }
 
 shippingButton.addEventListener('click', handleZipCode);
