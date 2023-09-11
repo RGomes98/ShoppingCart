@@ -193,9 +193,10 @@ products.forEach(({ name, image, price }, idx) => {
     const currentAmmount = e.target.value;
     const isValueNegative = currentAmmount < 0;
     const isValueBiggerThanNine = currentAmmount > 9;
-    const isValueNotNumeric = isNaN(currentAmmount);
+    const isValueNotNumericOrInteger =
+      isNaN(currentAmmount) || !Number.isInteger(Number(currentAmmount));
 
-    if (isValueNegative || isValueNotNumeric) {
+    if (isValueNegative || isValueNotNumericOrInteger) {
       totalPrice = 0;
       productAmmount.value = 0;
       products[idx].ammount = 0;
